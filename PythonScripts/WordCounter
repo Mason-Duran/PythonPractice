@@ -1,0 +1,50 @@
+def UserInput():
+    '''
+    Prompts user for a sentance in which the words will be counted
+    '''
+    
+    while True:
+        sentance = input('\n\n\nType your sentance here:').lower()
+
+        if sentance == '':
+            pass
+        else:
+            break
+    return sentance
+
+def WordCounter(sentance):
+    '''
+    Counts the occurance of each word in the sentance and stores them in a dictionary
+
+    Args: sentance (str) --> sentance typed by user
+    '''
+
+    words = {}
+    word = ''
+
+    for char in sentance:
+        if char != ' ' and char.isalpha():
+            word = word + char
+        elif word == '':
+            pass
+        else:
+            if word in words:
+                current_number = words[word]
+                words[word] = current_number + 1
+                word = ''
+            else:
+                words[word] = 1
+                word = ''
+    return words
+
+def DisplayResults(words):
+    '''
+    Displays the number of each word in the sentance
+    '''
+
+    for word in words:
+        print(f'\nThis sentance used {word} {words[word]} times.')
+
+sentance = UserInput()
+counter = WordCounter(sentance)
+DisplayResults(counter)

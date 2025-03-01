@@ -1,0 +1,61 @@
+def RandomIntGenerator():
+    ''' 
+    Generates Random integer for the player to guess
+    '''
+    import random
+    num = random.randint(0,100)
+    return num
+
+def TakeUserGuess():
+    '''
+    Prompts player to input a guess and ensure it is an integer
+    '''
+
+    while True:
+
+        guess = input('\n\nIm thinking of a number between 0 and 100.\nGuess the number:')
+
+        try:
+            num = int(guess) #convert input to integer
+            if 0 < num < 100:
+                return num
+            else:
+                print('\nNumber must be between 0 and 100. Guess again.')
+        except ValueError:
+            print('\nInvalid input, please enter a whole number.')
+
+def CheckGuess(num,target):
+    '''
+    Checks the player's guess against the target number and reports higher, low or correct guess
+
+    Args: num (integer) --> player's guess
+          target (integer) --> target number
+    '''
+    if num > target:
+        return('Lower')
+    elif num < target:
+        return('Higher')
+    else:
+        return('Correct')
+
+
+# Start Game
+
+target_number = RandomIntGenerator()
+
+correct_guess = False
+
+while correct_guess == False:
+    player_guess = TakeUserGuess()
+    result = CheckGuess(player_guess,target_number)
+    
+    if result == 'Correct':
+        print(f'\n\nCorrect! you guessed {player_guess}.')
+        correct_guess = True
+    elif result == 'Higher':
+        print('\nHigher than that, guess again!')
+    else:
+        print('\nLower than that, guess again!')
+
+
+    

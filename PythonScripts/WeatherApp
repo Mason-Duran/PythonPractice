@@ -1,0 +1,77 @@
+import requests
+import json
+
+def UserInput():
+    '''
+    Ask the user where they would like to see the current weather
+    '''
+    print('\n\nI can help you find the temperature of anywhere in the world.')
+    print('\nSimply provide me with the city name, the state code (if in USA) and the country code:')
+    
+    city = input('\nCity:')
+    state = input('\nState (only for US):').upper()
+    country = input('\nCountry:').upper()
+    
+    
+    while True:
+
+        if country == 'US' and state == '':
+            print('\nPlease select a state code because you selected USA as the country code.')
+            state = input('\nState (only for US):').upper()
+        else:
+            break
+    if country == 'US':
+        location = city + ',' + state + ',' + country
+        return location
+    else:
+        location = city + ',' + country
+        return location
+
+def GetCoord(location):
+    '''
+    Gets the coordinates of the requested location via the Geocoding API 
+    (https://openweathermap.org/api/geocoding-api#direct)
+
+    Args: location (string) --> city,state,country or city,country
+    '''
+
+    endpoint = f'http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid=bc2f138af3f86f16ef5b270015df1f70'
+
+    response = requests.get(endpoint)
+
+    if response.status_code == 200:
+        print('\nGot The Coordinates...\n')
+        content = response.json()
+        lat = content[0]['lat']
+        lon = content[0]['lon']
+        return (lat,lon)
+
+    else:
+        print(f'request failed with response code: {response.status_code}!')
+
+def GetWeather(lat,lon):
+    '''
+    Uses the lattitude and longitude to get the weather via openweathermap.org API
+
+    Args: lat (float) --> lattitude
+          lon (float) --> longitude
+    '''
+    endpoint = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=1d4edbfc8773d94c3393529eee813709&units=imperial'
+
+    response = requests.get(endpoint)
+    
+    if response.status_code == 200:
+        content = response.json()
+        temp = content['main']['temp']
+        description = content['weather'][0]['description']
+        weather = {'temp':temp,'description':description}
+        return weather
+    else:
+        print(f'Request failed with response code: {response.status_code}!')
+
+location = UserInput()
+lat,lon = GetCoord(location)
+weather = GetWeather(lat,lon)
+temp = weather['temp']
+description = weather['description']
+print(f'\n\nThe weather in {location} today is {description} and {temp} Fahrenheit!')
