@@ -1,7 +1,7 @@
 import requests
 import json
 
-def UserInput():
+def user_input():
     '''
     Ask the user where they would like to see the current weather
     '''
@@ -27,7 +27,7 @@ def UserInput():
         location = city + ',' + country
         return location
 
-def GetCoord(location):
+def get_coord(location):
     '''
     Gets the coordinates of the requested location via the Geocoding API 
     (https://openweathermap.org/api/geocoding-api#direct)
@@ -49,7 +49,7 @@ def GetCoord(location):
     else:
         print(f'request failed with response code: {response.status_code}!')
 
-def GetWeather(lat,lon):
+def get_weather(lat,lon):
     '''
     Uses the lattitude and longitude to get the weather via openweathermap.org API
 
@@ -69,9 +69,9 @@ def GetWeather(lat,lon):
     else:
         print(f'Request failed with response code: {response.status_code}!')
 
-location = UserInput()
-lat,lon = GetCoord(location)
-weather = GetWeather(lat,lon)
+location = user_input()
+lat,lon = get_coord(location)
+weather = get_weather(lat,lon)
 temp = weather['temp']
 description = weather['description']
 print(f'\n\nThe weather in {location} today is {description} and {temp} Fahrenheit!')

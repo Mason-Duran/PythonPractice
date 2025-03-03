@@ -1,4 +1,4 @@
-def RandomIntGenerator():
+def random_int_generator():
     ''' 
     Generates Random integer for the player to guess
     '''
@@ -6,7 +6,7 @@ def RandomIntGenerator():
     num = random.randint(0,100)
     return num
 
-def TakeUserGuess():
+def take_user_guess():
     '''
     Prompts player to input a guess and ensure it is an integer
     '''
@@ -24,7 +24,7 @@ def TakeUserGuess():
         except ValueError:
             print('\nInvalid input, please enter a whole number.')
 
-def CheckGuess(num,target):
+def check_guess(num,target):
     '''
     Checks the player's guess against the target number and reports higher, low or correct guess
 
@@ -41,13 +41,13 @@ def CheckGuess(num,target):
 
 # Start Game
 
-target_number = RandomIntGenerator()
+target_number = random_int_generator()
 
 correct_guess = False
 
 while correct_guess == False:
-    player_guess = TakeUserGuess()
-    result = CheckGuess(player_guess,target_number)
+    player_guess = take_user_guess()
+    result = check_guess(player_guess,target_number)
     
     if result == 'Correct':
         print(f'\n\nCorrect! you guessed {player_guess}.')

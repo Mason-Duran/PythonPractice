@@ -1,4 +1,4 @@
-def UserInput():
+def user_input():
     '''
     Prompts user for a sentance in which the words will be counted
     '''
@@ -12,7 +12,7 @@ def UserInput():
             break
     return sentance
 
-def WordCounter(sentance):
+def word_counter(sentance):
     '''
     Counts the occurance of each word in the sentance and stores them in a dictionary
 
@@ -37,7 +37,7 @@ def WordCounter(sentance):
                 word = ''
     return words
 
-def DisplayResults(words):
+def display_results(words):
     '''
     Displays the number of each word in the sentance
     '''
@@ -45,6 +45,6 @@ def DisplayResults(words):
     for word in words:
         print(f'\nThis sentance used {word} {words[word]} times.')
 
-sentance = UserInput()
-counter = WordCounter(sentance)
-DisplayResults(counter)
+sentance = user_input()
+counter = word_counter(sentance)
+display_results(counter)
