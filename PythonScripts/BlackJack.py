@@ -1,8 +1,11 @@
 
 import random
 
+#These 2 lists are used to create each card in the deck
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
+
+#This dictionary maps a numerical value with the string value of a card so the total of a hand can be calculated
 values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
             'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10, 'Ace':11}
 
@@ -46,6 +49,8 @@ class Deck():
         return single_card
 
 #This class is used to help calculate the value of a players hand
+#The adjust for ace function is used when a dealer has an ace. As in real black jack ace can be valued at
+# 11 or 1. if the dealer is over 21 with the ace valued at ten (known as a bust) the value will change to 1
 
 class Hand:
     
@@ -239,7 +244,7 @@ while True:
     # Inform Player of their chips total 
     print("\n\nPlayer's winnings stand at",player_chips.total)
     
-    # Ask to play again
+    # Ask to play again if they still have chips to play with
     if player_chips.total > 0:
         new_game = input("Would you like to play another hand? Enter 'y' or 'n' ")
     else:

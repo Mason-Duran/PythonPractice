@@ -1,3 +1,7 @@
+## This code prompts a user to enter a city any where in the world. Using 2 API requests the program will
+## Return a string describing the weather at that location
+## The first API request returns the geo-coordinates for the specified location and the second request uses those coordinates to get data on the weather
+
 import requests
 import json
 
@@ -6,7 +10,7 @@ def user_input():
     Ask the user where they would like to see the current weather
     '''
     print('\n\nI can help you find the temperature of anywhere in the world.')
-    print('\nSimply provide me with the city name, the state code (if in USA) and the country code:')
+    print('\nSimply provide me with the city name, the state code (if in US) and the country code:')
     
     city = input('\nCity:')
     state = input('\nState (only for US):').upper()
@@ -15,8 +19,8 @@ def user_input():
     
     while True:
 
-        if country == 'US' and state == '':
-            print('\nPlease select a state code because you selected USA as the country code.')
+        if country == 'US' and state == '': #This logic is added because the user MUST provide a state code (ex. MA) if the city is in the US
+            print('\nPlease select a state code because you selected US as the country code.')
             state = input('\nState (only for US):').upper()
         else:
             break
@@ -69,9 +73,13 @@ def get_weather(lat,lon):
     else:
         print(f'Request failed with response code: {response.status_code}!')
 
-location = user_input()
-lat,lon = get_coord(location)
-weather = get_weather(lat,lon)
-temp = weather['temp']
-description = weather['description']
-print(f'\n\nThe weather in {location} today is {description} and {temp} Fahrenheit!')
+
+## Run the code!
+
+location = user_input() #Get location from user
+lat,lon = get_coord(location) #Get coordinates via API
+weather = get_weather(lat,lon) #Get weather via API
+temp = weather['temp'] #Extract current temp from response
+description = weather['description'] #Extract current weather description from response
+
+print(f'\n\nThe weather in {location} today is {description} and {temp} Fahrenheit!') #Print statement to display results
